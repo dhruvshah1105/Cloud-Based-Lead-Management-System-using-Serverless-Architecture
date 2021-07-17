@@ -1,0 +1,150 @@
+SQS - REVEIVE MESSAGES:
+{
+	"Messages": [{
+		"MessageId": "7a970610-e46e-49a7-92d7-937d88de2ce5",
+		"ReceiptHandle": "AQEB3od4WhHiX0Bx+vzskBg5WAupC8g7/aSV5IXWZJcfy70Ea/r1s2vYqn1+mYCqDVFtBjg+a0siyYa7LBrZ+dsoiXcX0G2NCMdN7D6DbMem8Tozc9nazU/knALNSmIpg+h46KNcFEPsFQ4PUzKF/jp7vDx5VfhIN5ITnIm5JvVGUqleOn0Qp0JNATd6SF7Y+uzEVJBxGW4+W7lR2VcRcYQ1w5wzLI7TRUez1s0WK36StqQBlhRQrx0DM2QPjR7/R4iTxy3ZDie7HSLQ5iU1/hipS03wn5/k2pkfzcpgahBUmrg=",
+		"MD5OfBody": "07f3f0e60cbfbc003e7c8d241a5f649c",
+		"Body": "New row added with customer Mobile Number=1234567890",
+		"Attributes": {
+			"SenderId": "AROAQSZJ6STVKZ73WTZAV:DynamoDB-Trigger-Function",
+			"ApproximateFirstReceiveTimestamp": "1626259465914",
+			"ApproximateReceiveCount": "1",
+			"SentTimestamp": "1626255771530",
+			"SequenceNumber": "18863065551221232128",
+			"MessageDeduplicationId": "ef0aa27dbc440ca5919bdaa59278dab95f5fc93b87918797a23cd24470906b49",
+			"MessageGroupId": "Trial-1"
+		}
+	}],
+	"ResponseMetadata": {
+		"RequestId": "7c2e6245-68ba-512a-aeeb-3b2daaf34e30",
+		"HTTPStatusCode": 200,
+		"HTTPHeaders": {
+			"x-amzn-requestid": "7c2e6245-68ba-512a-aeeb-3b2daaf34e30",
+			"date": "Wed, 14 Jul 2021 10:44:25 GMT",
+			"content-type": "text/xml",
+			"content-length": "1443"
+		},
+	"RetryAttempts": 0
+}}
+
+
+
+SQS - GET_QUEUE_ATTRIBUTES RESPONSE
+{
+	"Attributes": {
+		"QueueArn": "arn:aws:sqs:us-east-1:385806589240:Send-data-to-loan-agent.fifo",
+		"ApproximateNumberOfMessages": "1",
+		"ApproximateNumberOfMessagesNotVisible": "0",
+		"ApproximateNumberOfMessagesDelayed": "0",
+		"CreatedTimestamp": "1626254603",
+		"LastModifiedTimestamp": "1626254603",
+		"VisibilityTimeout": "30",
+		"MaximumMessageSize": "262144",
+		"MessageRetentionPeriod": "345600",
+		"DelaySeconds": "0",
+		"Policy": {
+			"Version":"2008-10-17",
+			"Id":"__default_policy_ID",
+			"Statement":[{
+				"Sid":"__owner_statement",
+				"Effect":"Allow",
+				"Principal":{
+					"AWS":"arn:aws:iam::385806589240:root"
+				},
+				"Action":"SQS:*",
+				"Resource":"arn:aws:sqs:us-east-1:385806589240:Send-data-to-loan-agent.fifo"
+			},
+			{
+				"Sid":"__sender_statement",
+				"Effect":"Allow",
+				"Principal":{
+					"AWS":"arn:aws:iam::040353305834:root"
+				},
+				"Action":"SQS:SendMessage",
+				"Resource":"arn:aws:sqs:us-east-1:385806589240:Send-data-to-loan-agent.fifo"
+			}]
+		},
+		"ReceiveMessageWaitTimeSeconds": "0",
+		"FifoQueue": "true",
+		"DeduplicationScope": "queue",
+		"FifoThroughputLimit": "perQueue",
+		"ContentBasedDeduplication": "true"
+	},
+	"ResponseMetadata": {
+		"RequestId": "e839740c-3541-5fce-9227-2d64fd7cd8d8",
+		"HTTPStatusCode": 200,
+		"HTTPHeaders": {
+			"x-amzn-requestid": "e839740c-3541-5fce-9227-2d64fd7cd8d8",
+			"date": "Wed, 14 Jul 2021 11:09:49 GMT",
+			"content-type": "text/xml",
+			"content-length": "2265"
+		},
+	"RetryAttempts": 0
+}}
+
+
+
+[{
+	'MessageId': '65c63c42-bb6b-49f0-94a8-f83dcd758144',
+	'ReceiptHandle': 'AQEBXHdEAFObsaO7RqAWyh/l4aBl8t06Xt9r530En+ZZN6ti7sPLWiM2jV7YatrCHuJH5jxjffL9rjtgzjUK+XWXDcsTNMM9rJByBRRc6vCthNfKpG4kkQ20MQoDhZj5/FQbQG2jnNQ3tqHXN3CdGxF+qbijaqdQQ+FCI+RI4NHJMFBWEFQcbiT8LCzEhyANzwtH49NU/1HyH4169q+FgriLcX6i8NIebn6MljQQhcjC1B2SG+AL8Z3al7iWF/yNHlpQuSEop40CvhKlbNq2ISg3XVTYG8MenYzN3Iy+KCoFozo=',
+	'MD5OfBody': '6fb42da0e32e07b61c9f0251fe627a9c',
+	'Body': '0987654321',
+	'Attributes': {
+		'SenderId': 'AROAQSZJ6STVKZ73WTZAV:DynamoDB-Trigger-Function', 'ApproximateFirstReceiveTimestamp': '1626349417233',
+		'ApproximateReceiveCount': '4',
+		'SentTimestamp': '1626284428914',
+		'SequenceNumber': '18863072887511535872',
+		'MessageDeduplicationId': '17756315ebd47b7110359fc7b168179bf6f2df3646fcc888bc8aa05c78b38ac1',
+		'MessageGroupId': 'Trial-1'
+	}
+}]
+
+DYNAMODB RESPONSE
+{
+	'Item': {
+		'Date': {
+			'S': '2021-07-16'
+		},
+		'Availability': {
+			'S': 'Enable'
+		},
+		'Address': {
+			'S': 'Ahmedabad, Gujarat'
+		},
+		'Email_Id': {
+			'S': 'dhruvshah@gmail.com'
+		},
+		'Gender': {
+			'S': 'male'
+		},
+		'First_Name': {
+			'S': 'Dhruv'
+		},
+		'Country': {
+			'S': 'India'
+		},
+		'Last_Name': {
+			'S': 'Shah'
+		},
+		'Loan_Type': {
+			'S': 'Personal Loan'
+		},
+		'Mobile_No': {
+			'S': '9409687601'
+		}
+	},
+	'ResponseMetadata': {
+		'RequestId': 'MLB4LM64TVLHDMST5EEU8638RJVV4KQNSO5AEMVJF66Q9ASUAAJG',
+		'HTTPStatusCode': 200,
+		'HTTPHeaders': {
+			'server': 'Server',
+			'date': 'Thu, 15 Jul 2021 13:35:21 GMT',
+			'content-type': 'application/x-amz-json-1.0',
+			'content-length': '305',
+			'connection': 'keep-alive',
+			'x-amzn-requestid': 'MLB4LM64TVLHDMST5EEU8638RJVV4KQNSO5AEMVJF66Q9ASUAAJG',
+			'x-amz-crc32': '3081574545'
+		},
+	'RetryAttempts': 0
+	}
+}

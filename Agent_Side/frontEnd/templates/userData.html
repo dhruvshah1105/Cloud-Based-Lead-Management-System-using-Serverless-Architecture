@@ -1,0 +1,104 @@
+<html>
+  <head>
+    <title>Loan Application</title>
+    <link rel="stylesheet" href="static/css/valid.css" type="text/css" />
+    <script src="valid.js"></script>
+  </head>
+  <body bgcolor="lightblue">
+    <div id="header" align="center">Loan Application</div>
+    <div class="form-style">
+      <form
+        name="form1" method="POST" action="#" onsubmit="return fncValidate();" autocomplete="off">
+        <table align="center" width="400">
+          <tr>
+            <td width="125">Firstname</td>
+            <td width="180">
+              <div class="input-group">
+                <input type="text" name="fname" value='{{ fname }}' size="20" disabled/>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="125">Lastname</td>
+            <td width="180">
+              <div class="input-group">
+                <input type="text" name="lname" value="{{ lname }}" size="20" disabled/>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="125">Gender</td>
+            <td width="180">
+              <div class="input-group">
+                <input type="text" name="gender" size="20" value="{{ gender }}" disabled/>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="125">Coutry</td>
+            <td width="180">
+              <div class="input-group">
+                <input type="text" name="country" size="20" value="{{ country }}" disabled/>
+              </div>
+            </td>
+          </tr>
+          <tr></tr>
+          <tr>
+            <td>Mobile Number:</td>
+            <td>
+              <div class="input-group">
+                <input type="text" name="phone" value="{{ Mobile_no }}" disabled />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Email:</td>
+            <td>
+              <div class="input-group">
+                <input type="email" name="email" value="{{ email }}" disabled />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Type of Loan:</td>
+            <td>
+              <div class="input-group">
+                <input type="Type of Loan" name="Loan" value="{{ loan_type }}" disabled />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Total amount: &nbsp; &nbsp;(In Rupee)</td>
+            <td>
+              <div class="input-group">
+                <input type="Type of Loan" name="Loan" required />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Remarks</td>
+            <td>
+              <textarea name="remarks" class="textarea-field" required>
+              </textarea>
+            </td>
+          </tr>
+        </table>
+        <div class="btn">
+          <center>
+            <input type="submit" onclick="myFunction()" />
+          </center>
+        </div>
+      </form>
+    </div>
+    <script>
+      function myFunction() {
+        document.getElementById("form1").reset();
+      }
+    </script>
+    <script>
+      $('input[name = "rdbutton"]').on("change", function () {
+        $('#datecontrol[name="date"]').attr("disabled", this.value != "Enable");
+      });
+    </script>
+  </body>
+</html>

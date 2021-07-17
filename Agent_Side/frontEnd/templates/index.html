@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>Status</title>
+    <link rel="stylesheet" href="static/css/valid.css" type="text/css" />
+  </head>
+  <body bgcolor="lightblue">
+    <div id="header" align="center">Loan Application</div>
+    <div class="form-style">
+      <h2>Please select your Status.</h2>
+      <form name="form1" method="POST" action="#" autocomplete="off">
+        <table align="center" width="400">
+          <tr>
+            <td>Availability Status</td>
+            <td>
+              <div class="input-group">
+                <select id="status" name="status" size="1" required onchange="enableButton()">
+                  <option value="">-- Select status. --</option>
+                  <option value="Online">Online</option>
+                  <option value="Offline">Offline</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <div class="btn">
+          <center>
+            <input type="submit" id="seeddoc" disabled value="Submit" />
+          </center>
+        </div>
+      </form>
+    </div>
+    <script>
+      function enableButton() {
+        var selectelem = document.getElementById("status");
+        var btnelem = document.getElementById("seeddoc");
+        btnelem.disabled = !selectelem.value;
+      }
+    </script>
+  </body>
+</html>
