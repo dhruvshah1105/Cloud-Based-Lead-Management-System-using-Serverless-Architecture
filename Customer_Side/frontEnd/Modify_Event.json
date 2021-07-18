@@ -1,0 +1,85 @@
+{'Records':
+  [{
+    'eventID': 'bca08196ff8e1ab4d511331af4ef9b5c',
+    'eventName': 'MODIFY',
+    'eventVersion': '1.1',
+    'eventSource': 'aws:dynamodb',
+    'awsRegion': 'us-east-1',
+    'dynamodb': {
+      'ApproximateCreationDateTime': 1626078366.0,
+      'Keys': {
+        'Mobile_No': {
+          'S': '9409687601'
+        }
+      }, 
+      'NewImage': {
+        'date': {
+          'S': ''
+        },
+        'country': {
+          'S': 'India'
+        },
+        'fname': {
+          'S': 'Mitesh'
+        },
+        'lname': {
+          'S': 'Shah'
+        },
+        'address': {
+          'S': 'Ahmedabad,Gujarat'
+        },
+        'gender': {
+          'S': 'male'
+        },
+        'Mobile_No': {
+          'S': '9409687601'
+        },
+        'availability': {
+          'S': 'Disable'
+        },
+        'loan_type': {
+          'S': 'Personal Loan'
+        },
+        'email': {
+          'S': 'dhruvshah@gmail.com'
+        }
+      },
+      'OldImage': {
+        'date': {
+          'S': ''
+        },
+        'country': {
+          'S': 'India'
+        },
+        'fname': {
+          'S': 'Dhruv'
+        },
+        'lname': {
+          'S': 'Shah'
+        },
+        'address': {
+          'S': 'Ahmedabad.\r\nGujarat'
+        },
+        'gender': {
+          'S': 'male'
+        },
+        'Mobile_No': {
+          'S': '9409687601'
+        },
+        'availability': {
+          'S': 'Disable'
+        },
+        'loan_type': {
+          'S': 'Personal Loan'
+        },
+        'email': {
+          'S': 'dhruvshah924@gmail.com'
+        }
+      },
+      'SequenceNumber': '4302400000000009252426083',
+      'SizeBytes': 331,
+      'StreamViewType': 'NEW_AND_OLD_IMAGES'
+    },
+    'eventSourceARN': 'arn:aws:dynamodb:us-east-1:040353305834:table/Loan_Customer_Data/stream/2021-07-12T08:11:19.896'
+  }]
+}
