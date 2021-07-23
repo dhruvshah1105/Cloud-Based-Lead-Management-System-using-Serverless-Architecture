@@ -15,29 +15,36 @@ def home():
 def form_data():
     status = request.form['status']
     if status == 'Online':
-        No_of_messages = Queue_Messages()
-        if No_of_messages != '0':
-            return render_template('popUp.html')
-        else:
-            return render_template('onlineStatus.html')
+        return render_template('onlineStatus.html')
     else:
         return render_template('index.html')
+
+
+@app.route('/online',methods=['GET'])
+def redirect():
+    Num = Queue_Messages()
+    if Num != '0':
+        return render_template('popUp.html')
+    else:
+        return render_template('onlineStatus.html')
 
 def Queue_Messages():
     sqs = boto3.client('sqs')
     response_queue_attributes = sqs.get_queue_attributes(
-        QueueUrl='https://sqs.us-east-1.amazonaws.com/385806589240/Send-data-to-loan-agent.fifo',
+        QueueUrl='https://sqs.us-east-1.amazonaws.com/385806589240/sending_data_to_sqs_queue',
         AttributeNames=[
             'All',
         ],
     )
+    print(f"get_queue_attributes response:{response_queue_attributes}")
     No_of_messages = response_queue_attributes['Attributes']['ApproximateNumberOfMessages']
+    print(f"No_of_messages : {No_of_messages}")
     return No_of_messages
 
 def Queue_data():
     sqs = boto3.client('sqs')
     response = sqs.receive_message(
-        QueueUrl='https://sqs.us-east-1.amazonaws.com/385806589240/Send-data-to-loan-agent.fifo',
+        QueueUrl='https://sqs.us-east-1.amazonaws.com/385806589240/sending_data_to_sqs_queue',
         AttributeNames=[
             'All',
         ],
@@ -48,9 +55,11 @@ def Queue_data():
         VisibilityTimeout=600,
         WaitTimeSeconds=0
     )
+    print(response)
     Messages = response['Messages']
     for i in Messages:
         Mobile_no = i['Body']
+    print(Mobile_no)
     return Mobile_no
 
 def get_data(Mobile_no):
