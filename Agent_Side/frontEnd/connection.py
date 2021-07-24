@@ -1,8 +1,5 @@
 from flask import Flask, render_template, request
-import requests
 import boto3
-import json
-import flask
 
 app = Flask(__name__)
 
@@ -18,7 +15,6 @@ def form_data():
         return render_template('onlineStatus.html')
     else:
         return render_template('index.html')
-
 
 @app.route('/online',methods=['GET'])
 def redirect():
@@ -36,14 +32,17 @@ def Queue_Messages():
             'All',
         ],
     )
-    print(f"get_queue_attributes response:{response_queue_attributes}")
+    # print(f"get_queue_attributes response:{response_queue_attributes}")
     No_of_messages = response_queue_attributes['Attributes']['ApproximateNumberOfMessages']
-    print(f"No_of_messages : {No_of_messages}")
+    # print(f"No_of_messages : {No_of_messages}")
     return No_of_messages
 
-def Queue_data():
+ReceiptHandle = ''
+@app.route('/ok')
+def ok():
+    # Calling the queue and extracting the data from it.
     sqs = boto3.client('sqs')
-    response = sqs.receive_message(
+    sqs_response = sqs.receive_message(
         QueueUrl='https://sqs.us-east-1.amazonaws.com/385806589240/sending_data_to_sqs_queue',
         AttributeNames=[
             'All',
@@ -55,16 +54,16 @@ def Queue_data():
         VisibilityTimeout=600,
         WaitTimeSeconds=0
     )
-    print(response)
-    Messages = response['Messages']
+    Messages = sqs_response['Messages']
+    global ReceiptHandle
     for i in Messages:
         Mobile_no = i['Body']
-    print(Mobile_no)
-    return Mobile_no
-
-def get_data(Mobile_no):
+        ReceiptHandle = i['ReceiptHandle']
+    print(f"MObile: {Mobile_no} ReceiptHandle: {ReceiptHandle}")
+    
+    # Fetching Data from the database
     dynamodb = boto3.client('dynamodb')
-    response = dynamodb.get_item(
+    dynamodb_response = dynamodb.get_item(
         TableName = 'Loan_Customer_Data',
         Key={
             'Mobile_No': {
@@ -72,16 +71,11 @@ def get_data(Mobile_no):
             }
         }
     )
-    return response['Item']
-
-
-@app.route('/ok')
-def ok():
-    Mobile_no = Queue_data()
-    data = get_data(Mobile_no)
+    data = dynamodb_response['Item']
+    
     # extract form-data from data
-    date = data['Date']['S']
-    available = data['Availability']['S']
+    # date = data['Date']['S']
+    # available = data['Availability']['S']
     address = data['Address']['S']
     email = data['Email_Id']['S']
     gender = data['Gender']['S']
@@ -89,11 +83,89 @@ def ok():
     country = data['Country']['S']
     lname = data['Last_Name']['S']
     loan_type = data['Loan_Type']['S']
-    return render_template('userData.html',Mobile_no = Mobile_no, date = date, available = available, address = address, email = email, gender = gender, fname = fname, country = country, lname = lname, loan_type = loan_type)
+    return render_template('userData.html',
+                           fname = fname,
+                           lname = lname,
+                           gender = gender,                           
+                           address = address,
+                           country = country,
+                           Mobile_no = Mobile_no,
+                           email = email,
+                           loan_type = loan_type
+                        )
 
 @app.route('/home')
 def index():
     return render_template('onlineStatus.html')
+
+@app.route('/update_database',methods=['POST'])
+def update_database():
+    # getting data from form
+    fname = request.form['fname']
+    lname = request.form['lname']
+    gender = request.form['gender']
+    address = request.form['address']
+    country = request.form['country']
+    phone = request.form['phone']
+    email = request.form['email']
+    loan = request.form['loan_type']
+    loan_amount = request.form['loan_amount']
+    remarks = request.form['remarks']
+    
+    global ReceiptHandle
+    
+    # creating the dynamoDB client and updating the data to database
+    client = boto3.client('dynamodb')
+    response = client.put_item(
+        TableName = 'Loan_Customer_Data',
+        Item = {
+            'Mobile_No': {
+                'S': phone
+            },
+            'Address': {
+                'S': address
+            },
+            'Country': {
+                'S': country
+            },
+            'Email_Id': {
+                'S': email
+            },
+            'First_Name': {
+                'S': fname
+            },
+            'Gender': {
+                'S': gender
+            },
+            'Last_Name': {
+                'S': lname
+            },
+            'Loan_Type': {
+                'S': loan
+            },
+            'Laon_Amount': {
+                'S': loan_amount
+            },
+            'Remarks': {
+                'S': remarks
+            }
+        },
+        ReturnValues='NONE'
+    )
+    
+    sqs = boto3.client('sqs')
+    queue_url = 'https://sqs.us-east-1.amazonaws.com/385806589240/sending_data_to_sqs_queue'
+    
+    if response['ResponseMetadata']['HTTPStatusCode'] == 200:
+        sqs.delete_message(
+            QueueUrl=queue_url,
+            ReceiptHandle=ReceiptHandle
+        )
+        return render_template('onlineStatus.html')
+    else:
+        return response['ResponseMetadata']['HTTPStatuCode']
+    
+    
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5001, debug=True)
