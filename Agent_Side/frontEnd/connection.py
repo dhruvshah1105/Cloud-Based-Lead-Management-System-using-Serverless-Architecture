@@ -2,27 +2,43 @@ from flask import Flask, render_template, request
 import boto3
 
 app = Flask(__name__)
-
+status=""
 @app.route("/")
 @app.route("/index.html")
 def home():
     return render_template('index.html')
 
+status = ''
 @app.route('/',methods=['POST'])
 def form_data():
+    global status
     status = request.form['status']
     if status == 'Online':
         return render_template('onlineStatus.html')
     else:
         return render_template('index.html')
 
-@app.route('/online',methods=['GET'])
-def redirect():
-    Num = Queue_Messages()
-    if Num != '0':
-        return render_template('popUp.html')
+@app.route('/action',methods=['POST'])
+def red():
+    global status
+    status = request.form['status']
+    if status.lower() == "offline":
+        return render_template('index.html')
     else:
         return render_template('onlineStatus.html')
+
+@app.route('/online',methods=['GET'])
+def redirect():
+    global status
+    print(status)
+    if status == 'Online':
+        Num = Queue_Messages()
+        if Num != '0':
+            return render_template('popUp.html')
+        else:
+            return render_template('onlineStatus.html')
+    else:
+        return render_template('index.html')
 
 def Queue_Messages():
     sqs = boto3.client('sqs')

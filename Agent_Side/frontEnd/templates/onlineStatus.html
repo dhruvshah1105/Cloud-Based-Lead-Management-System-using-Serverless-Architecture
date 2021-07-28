@@ -1,21 +1,21 @@
 <html>
     <head>
         <title>Online Status</title>
-        <meta http-equiv="refresh" content="5; url=http://127.0.0.1:5001/online" >
+        <meta http-equiv="refresh" content="5; url=http://127.0.0.1:5001/online">
         <link rel="stylesheet" href="static/css/valid.css" type="text/css"/>
     </head>
     <body bgcolor="lightblue">
         <div id="header" align="center">Loan Application</div>
         <div class="form-style">
             <h2>Your Availability Status</h2>
-            <form name="form1" method="POST" action="#" autocomplete="off">
+            <form name="form1" method="POST" action="/action" autocomplete="off">
                 <table align="center" width="400">
                     <tr>
                         <td>Availability Status </td>
                         <td>
                             <div class="input-group">
                                 <select id="status" name="status" required>
-                                    <option value="Offline">Offline</option>
+                                    <option value="Offline" id="val">Offline</option>
                                  </select>
                             </div>
                         </td>
