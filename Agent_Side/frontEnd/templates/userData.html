@@ -2,19 +2,17 @@
   <head>
     <title>Loan Application</title>
     <link rel="stylesheet" href="static/css/valid.css" type="text/css" />
-    <script src="valid.js"></script>
   </head>
   <body bgcolor="lightblue">
     <div id="header" align="center">Loan Application</div>
     <div class="form-style">
-      <form
-        name="form1" method="POST" action="#" onsubmit="return fncValidate();" autocomplete="off">
+      <form name="form1" method="POST" action="/update_database" autocomplete="off">
         <table align="center" width="400">
           <tr>
             <td width="125">Firstname</td>
             <td width="180">
               <div class="input-group">
-                <input type="text" name="fname" value='{{ fname }}' size="20"/>
+                <input type="text" name="fname" value='{{ fname }}' size="20" required/>
               </div>
             </td>
           </tr>
@@ -22,7 +20,7 @@
             <td width="125">Lastname</td>
             <td width="180">
               <div class="input-group">
-                <input type="text" name="lname" value="{{ lname }}" size="20"/>
+                <input type="text" name="lname" value="{{ lname }}" size="20" required/>
               </div>
             </td>
           </tr>
@@ -30,15 +28,22 @@
             <td width="125">Gender</td>
             <td width="180">
               <div class="input-group">
-                <input type="text" name="gender" size="20" value="{{ gender }}"/>
+                <input type="text" name="gender" size="20" value="{{ gender }}" required/>
               </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="125">Address:</td>
+            <td width="180">
+              <textarea class="textarea-field" name="address" value="{{ address }}">
+              </textarea>
             </td>
           </tr>
           <tr>
             <td width="125">Coutry</td>
             <td width="180">
               <div class="input-group">
-                <input type="text" name="country" size="20" value="{{ country }}"/>
+                <input type="text" name="country" size="20" value="{{ country }}" required/>
               </div>
             </td>
           </tr>
@@ -47,7 +52,7 @@
             <td>Mobile Number:</td>
             <td>
               <div class="input-group">
-                <input type="text" name="phone" value="{{ Mobile_no }}"/>
+                <input type="text" name="phone" value="{{ Mobile_no }}" required/>
               </div>
             </td>
           </tr>
@@ -55,7 +60,7 @@
             <td>Email:</td>
             <td>
               <div class="input-group">
-                <input type="email" name="email" value="{{ email }}"/>
+                <input type="email" name="email" value="{{ email }}" required/>
               </div>
             </td>
           </tr>
@@ -63,7 +68,7 @@
             <td>Type of Loan:</td>
             <td>
               <div class="input-group">
-                <input type="Type of Loan" name="Loan" value="{{ loan_type }}" disabled />
+                <input type="Type of Loan" name="Loan" value="{{ loan_type }}" required/>
               </div>
             </td>
           </tr>
@@ -71,7 +76,7 @@
             <td>Total amount: &nbsp; &nbsp;(In Rupee)</td>
             <td>
               <div class="input-group">
-                <input type="Type of Loan" name="Loan" required />
+                <input type="Type of Loan" name="Loan" required/>
               </div>
             </td>
           </tr>
@@ -90,15 +95,5 @@
         </div>
       </form>
     </div>
-    <script>
-      function myFunction() {
-        document.getElementById("form1").reset();
-      }
-    </script>
-    <script>
-      $('input[name = "rdbutton"]').on("change", function () {
-        $('#datecontrol[name="date"]').attr("disabled", this.value != "Enable");
-      });
-    </script>
   </body>
 </html>
