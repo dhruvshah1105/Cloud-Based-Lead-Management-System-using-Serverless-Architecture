@@ -76,7 +76,7 @@ def ok():
         Mobile_no = i['Body']
         ReceiptHandle = i['ReceiptHandle']
     print(f"MObile: {Mobile_no} ReceiptHandle: {ReceiptHandle}")
-    
+
     # Fetching Data from the database
     dynamodb = boto3.client('dynamodb')
     dynamodb_response = dynamodb.get_item(
@@ -88,7 +88,7 @@ def ok():
         }
     )
     data = dynamodb_response['Item']
-    
+
     # extract form-data from data
     # date = data['Date']['S']
     # available = data['Availability']['S']
@@ -102,7 +102,7 @@ def ok():
     return render_template('userData.html',
                            fname = fname,
                            lname = lname,
-                           gender = gender,                           
+                           gender = gender,
                            address = address,
                            country = country,
                            Mobile_no = Mobile_no,
@@ -127,9 +127,9 @@ def update_database():
     loan = request.form['loan_type']
     loan_amount = request.form['loan_amount']
     remarks = request.form['remarks']
-    
+
     global ReceiptHandle
-    
+
     # creating the dynamoDB client and updating the data to database
     client = boto3.client('dynamodb')
     response = client.put_item(
@@ -168,10 +168,10 @@ def update_database():
         },
         ReturnValues='NONE'
     )
-    
+
     sqs = boto3.client('sqs')
-    queue_url = 'https://sqs.us-east-1.amazonaws.com/385806589240/sending_data_to_sqs_queue'
-    
+    queue_url = '<-----------ENTER YOU QUEUE URL HERE------------>'
+
     if response['ResponseMetadata']['HTTPStatusCode'] == 200:
         sqs.delete_message(
             QueueUrl=queue_url,
@@ -180,8 +180,8 @@ def update_database():
         return render_template('onlineStatus.html')
     else:
         return response['ResponseMetadata']['HTTPStatuCode']
-    
-    
+
+
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5001, debug=True)

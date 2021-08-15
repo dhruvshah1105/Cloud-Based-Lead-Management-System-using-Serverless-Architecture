@@ -24,7 +24,7 @@ def form_data():
     elif rdbutton == 'Enable':
         date = request.form['date']
 
-    API_ENDPOINT = 'https://yjspcu4991.execute-api.us-east-1.amazonaws.com/v1/v1'
+    API_ENDPOINT = '<------------ENTER YOUR API----------->'
 
     data = {'First_Name': fname,
             'Last_Name': lname,

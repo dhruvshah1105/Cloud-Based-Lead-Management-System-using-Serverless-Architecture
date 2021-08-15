@@ -11,7 +11,7 @@
         'Mobile_No': {
           'S': '9409687601'
         }
-      }, 
+      },
       'NewImage': {
         'date': {
           'S': ''
@@ -41,7 +41,7 @@
           'S': 'Personal Loan'
         },
         'email': {
-          'S': 'dhruvshah@gmail.com'
+          'S': ''
         }
       },
       'OldImage': {
@@ -73,13 +73,13 @@
           'S': 'Personal Loan'
         },
         'email': {
-          'S': 'dhruvshah924@gmail.com'
+          'S': ''
         }
       },
       'SequenceNumber': '4302400000000009252426083',
       'SizeBytes': 331,
       'StreamViewType': 'NEW_AND_OLD_IMAGES'
     },
-    'eventSourceARN': 'arn:aws:dynamodb:us-east-1:040353305834:table/Loan_Customer_Data/stream/2021-07-12T08:11:19.896'
+    'eventSourceARN': ''
   }]
 }
